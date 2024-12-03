@@ -41,6 +41,7 @@ jobs:
   
       - name: Build
         run: |
+          cd hexo
           cd themes/sagiri
           npm install
           cd ../..
