@@ -24,27 +24,15 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Install Dependencies
+      - name: Install Dependencies & Build
         run: |
           cd hexo
           npm install
-
-      - name: Install Hexo Git Deployer
-        run: |
-          npm install hexo-deployer-git --save
-          npm install hexo-cli -g
-
-      - name: Clean and Generate Static Files
-        run: |
-          hexo clean
-          hexo generate
-  
-      - name: Build
-        run: |
-          cd themes/sagiri
+          cd themes/hexo-theme-sagiri
           npm install
           cd ../..
           npm run build
+  
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
         with:
