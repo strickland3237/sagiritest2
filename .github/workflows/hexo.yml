@@ -25,7 +25,9 @@ jobs:
           node-version: '18'
 
       - name: Install Dependencies
-        run: npm install
+        run: |
+          cd hexo
+          npm install
 
       - name: Install Hexo Git Deployer
         run: |
