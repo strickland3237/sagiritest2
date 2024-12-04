@@ -17,22 +17,26 @@ jobs:
   pages:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-  
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
+      - uses: actions/checkout@v2
+      - name: Use Node.js 16
+        uses: actions/setup-node@v1
         with:
-          node-version: '18'
-
-      - name: Install Dependencies & Build
+          node-version: '16'
+      - name: Cache NPM dependencies
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.OS }}-npm-cache
+          restore-keys: |
+            ${{ runner.OS }}-npm-cache
+      - name: Install Dependencies
+        run: npm install
+      - name: Build
         run: |
-          cd hexo
-          npm install
-          cd themes/hexo-theme-sagiri
+          cd hexo/themes/hexo-theme-sagiri
           npm install
           cd ../..
           npm run build
-  
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
         with:
